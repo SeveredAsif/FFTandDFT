@@ -115,18 +115,20 @@ def IDFT(signal):
 CrossCorrInTimeDomain = IDFT(signal_cross)
 shifted_index = np.arange(-n//2, n//2)
 
-plt.figure(figsize=(10, 5))
-plt.stem(shifted_index, CrossCorrInTimeDomain, linefmt="green", markerfmt="go", basefmt=" ")
-plt.title("DFT-Based Cross-Correlation")
-plt.xlabel("Sample Lag")
-plt.ylabel("Correlation Magnitude")
-plt.grid()
-plt.show()
+
 
 # Calculate Sample Lag and Distance
 sample_lag = np.argmax(CrossCorrInTimeDomain)
 sample_lag = n - sample_lag if sample_lag > n // 2 else -sample_lag
 print("Found after DFT-based Cross-Correlation: ", sample_lag)
+
+plt.figure(figsize=(10, 5))
+plt.stem(shifted_index, np.flip(np.roll(CrossCorrInTimeDomain,n//2 - 1)), linefmt="green", markerfmt="go", basefmt=" ")
+plt.title("DFT-Based Cross-Correlation")
+plt.xlabel("Sample Lag")
+plt.ylabel("Correlation Magnitude")
+plt.grid()
+plt.show()
 
 distance = sample_lag * wave_velocity * (1 / sampling_rate)
 print("Distance: ", distance)

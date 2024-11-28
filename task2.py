@@ -7,7 +7,7 @@ n
 sequences = []
 for length in n:
     sequences.append(np.random.randint(0,100,length))
-print(sequences[5])
+#print(sequences[5])
 def DFT(signal):
     N = len(signal)
     W_N = np.array(np.zeros(shape=(N,N)), dtype=complex)

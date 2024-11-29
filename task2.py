@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import time 
 
 n = [2**2,2**3,2**4,2**5,2**6,2**7]
-n
+
 sequences = []
 for length in n:
     sequences.append(np.random.randint(0,100,length))
@@ -33,7 +33,16 @@ def IDFT(signal):
     W_N = W_N/N
     IDFTmatrix = np.matmul(W_N,signal)
     return IDFTmatrix
+
+def zero_pad(signal):
+    next_power_of_2 = 2**int(np.ceil(np.log2(len(signal))))
+    padded_signal = np.zeros(next_power_of_2, dtype=signal.dtype)
+    padded_signal[:len(signal)] = signal
+    return padded_signal
+
+
 def FFT(signal):
+    signal = zero_pad(signal)
     N = len(signal)
     if (N==1):
         return signal
@@ -51,6 +60,7 @@ def FFT(signal):
 
 
 def IFFT(signal):
+    signal = zero_pad(signal)
     N = len(signal)
     if (N==1):
         return signal
